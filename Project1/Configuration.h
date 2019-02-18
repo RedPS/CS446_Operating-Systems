@@ -1,8 +1,18 @@
 #ifndef CONFIGURATION
 #define CONFIGURATION
 
-#include <iosteam>
+#include <iostream>
 #include <string>
+
+#include <fstream>
+#include <vector>
+
+#include <sstream>
+#include <iomanip>
+
+#include <iterator>
+#include <algorithm>
+
 
 class Configuration {
 
@@ -23,14 +33,14 @@ class Configuration {
         std::string LogToObject;
         std::string LogFilePath;
     //end
-    
+
     public:
         //constructors
         Configuration();
         Configuration(const Configuration &copy);
         ~Configuration();
         //Read all the info
-        void LoadConfigurationFile() throw (runtime_error);
+        void LoadConfigurationFile(std::string PathToConfig) throw (runtime_error);
 
         //setters
         void Set_Version_Phase(double VP);
@@ -48,7 +58,6 @@ class Configuration {
         void Set_LogFilePath(std::string LFP);
 
         //getters
-
         double Get_Version_Phase();
         std::string Get_MetaDataFilePath();
         
