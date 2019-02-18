@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <iterator>
 #include <algorithm>
+#include <stdexcept>
 
 
 class Configuration {
@@ -37,7 +38,7 @@ class Configuration {
         Configuration(const Configuration &copy);
         ~Configuration();
         //Read all the info
-        void LoadConfigurationFile(std::string PathToConfig) throw (runtime_error);
+        void LoadConfigurationFile(std::string PathToConfig) throw (std::runtime_error);
 
         //setters
         void Set_Version_Phase(double VP);

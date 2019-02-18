@@ -5,7 +5,6 @@ Configuration::Configuration() {
 }
 Configuration::Configuration(const Configuration &copy){
     *this = copy;
-    return *this;
 }
 Configuration::~Configuration(){
 
@@ -84,7 +83,7 @@ std::string Configuration::Get_LogFilePath(){
     return LogFilePath;
 }
 
-void Configuration::LoadConfigurationFile(std::string PathToConfig) throw (runtime_error){
+void Configuration::LoadConfigurationFile(std::string PathToConfig) throw (std::runtime_error){
     std::ifstream ConfigurationFile;
     ConfigurationFile.open(PathToConfig);
 
@@ -96,18 +95,21 @@ void Configuration::LoadConfigurationFile(std::string PathToConfig) throw (runti
         while(ConfigurationFile >> text){
             words.push_back(text);
         }
-        for (std::vector<std::string>::iterator it = words.begin() ; it != words.end(); ++it){
-            if (*it == "Version/Phase:"){
-                Set_Version_Phase(std::stod(*(it+1)));
-            }
+        for (std::vector<std::string>::iterator it = words.begin() ; it != words.end(); it++){
             if (*it == "File"){
                 FilePath = *(it+2);
                 if (FilePath.substr(FilePath.find_last_of(".") + 1) == "mdf"){
                     Set_MetaDataFilePath(FilePath);        
                 }
+                /*
                 else{
-                    throw runtime_error("File Path for Meta Data does not have \"mdf\" extension");
+                    std::cout << FilePath.substr(FilePath.find_last_of(".") + 1) <<std::endl;
+                    throw std::runtime_error("File Path for Meta Data does not have \"mdf\" extension");
                 }
+                */
+            }
+            if (*it == "Version/Phase:"){
+                Set_Version_Phase(std::stod(*(it+1)));
             }
             if (*it == "Monitor"){
                 Set_MonitorTime(std::stoi(*(it+4)));
@@ -138,14 +140,16 @@ void Configuration::LoadConfigurationFile(std::string PathToConfig) throw (runti
                 if (FilePath.substr(FilePath.find_last_of(".") + 1) == "lgf"){
                     Set_LogFilePath(FilePath);       
                 }
+                /*
                 else{
-                    throw runtime_error("File Path for Log File does not have \"lgf\" extension");
+                    throw std::runtime_error("File Path for Log File does not have \"lgf\" extension");
                 }
+                */
             }
         }
     }
     else{
-        throw runtime_error("error: Can't open the configuration file");
+        throw std::runtime_error("error: Can't open the configuration file");
     }
 
     ConfigurationFile.close();
@@ -157,7 +161,7 @@ void Configuration::LoadConfigurationFile(std::string PathToConfig) throw (runti
            (HardDriveTime > 0) and 
            (KeyboardTime  > 0) and 
            (MemoryTime    > 0) and 
-           (ProjectorTime > 0) and )){
-               throw runtime_error("error: Wrong data in configuration");
+           (ProjectorTime > 0) )){
+               throw std::runtime_error("error: Wrong data in configuration");
            }
 }
