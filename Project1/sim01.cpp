@@ -3,6 +3,8 @@
 int main(int argc, char *argv[]){
     Configuration config;
     MetaData data;
+    int status = 0;
+    int pstatus = 0;
 
     if (argc == 2){
         std::vector<MetaData> MetaDatadata;
@@ -11,9 +13,11 @@ int main(int argc, char *argv[]){
         data.LoadMataData(config.Get_LogFilePath, MetaDatadata);
 
         for (auto& i : MetaDatadata){
-
+            ProcTime(config, i, status, pstatus);
         }
         
+        logtofile(config, MetaDatadata);
+        return 0;
     }
     else if (argc < 2)
     {
