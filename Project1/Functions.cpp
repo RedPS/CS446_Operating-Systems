@@ -2,13 +2,13 @@
 #include "MetaData.cpp"
 
 
-logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data);
-void logtofile(Configuration config, std::vector<MetaData> data) throw (runtime_error);
-void ProcTime(Configuration config, MetaData& data, int& status, int progstatus) throw (runtime_error);
+void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data);
+void logtofile(Configuration config, std::vector<MetaData> data) throw (std::runtime_error);
+void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus) throw (std::runtime_error);
 
 
-void ProcTime(Configuration config, MetaData& data, int& status, int progstatus) throw (runtime_error) {
-    if (data.Get_cipher() == "S"){
+void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus) throw (std::runtime_error) {
+    if (data.Get_cipher() == 'S'){
         if (data.Get_caption() == "begin" and status == 0){
             status = 1;
         }
@@ -16,10 +16,10 @@ void ProcTime(Configuration config, MetaData& data, int& status, int progstatus)
             status = 2;
         }
         else {
-            throw runtime_error("\"begin\" or \"finish\" are missing ");
+            throw std::runtime_error("\"begin\" or \"finish\" are missing ");
         }
     }
-    if (data.Get_cipher() == 'A'){
+    else if (data.Get_cipher() == 'A'){
         if(data.Get_caption() == "begin" and progstatus == 0){
             progstatus = 1;
         }
@@ -27,7 +27,8 @@ void ProcTime(Configuration config, MetaData& data, int& status, int progstatus)
             progstatus = 0;
         }
         else {
-            throw runtime_error("\"begin\" or \"finish\" are missing ");
+            std::cout << progstatus  << std::endl;
+            throw std::runtime_error("\"begin\" or \"finish\" are missing ");
         }
     }
     if (data.Get_cipher() == 'P' and data.Get_caption() == "run"){
@@ -44,7 +45,7 @@ void ProcTime(Configuration config, MetaData& data, int& status, int progstatus)
             data.Set_time(data.Get_period() * config.Get_HardDriveTime());
         }
         else{
-            throw runtime_error("Can't find the caption for cipher \'I\'");
+            throw std::runtime_error("Can't find the caption for cipher \'I\'");
 
         }
     }
@@ -59,24 +60,24 @@ void ProcTime(Configuration config, MetaData& data, int& status, int progstatus)
             data.Set_time(data.Get_period() * config.Get_HardDriveTime());
         }
         else{
-            throw runtime_error("Can't find the caption for cipher \'O\'");
+            throw std::runtime_error("Can't find the caption for cipher \'O\'");
         }
     }
     if (data.Get_cipher() == 'M'){
         if (data.Get_caption() == "allocate"){
-            data.Set_time(data.Get_period() * config.Get_MonitorTime());
+            data.Set_time(data.Get_period() * config.Get_MemoryTime());
         }
         else if(data.Get_caption() == "block"){
             data.Set_time(data.Get_period() * config.Get_MemoryTime());
         }
         else{
-            throw runtime_error("Can't find the caption for cipher \'M\'");
+            throw std::runtime_error("Can't find the caption for cipher \'M\'");
         }
     }
 
 }
 
-void logtofile(Configuration config, std::vector<MetaData> data) throw (runtime_error) {
+void logtofile(Configuration config, std::vector<MetaData> data) throw (std::runtime_error) {
     std::ofstream logout;
 
     bool to_monitor;
@@ -86,17 +87,19 @@ void logtofile(Configuration config, std::vector<MetaData> data) throw (runtime_
     if (config.Get_LogToObject() == "Both") {
         to_both = true;
     }
-    if ((config.Get_LogToObject() == "Monitor") or (config.Get_LogToObject() == "monitor")){
+    else if ((config.Get_LogToObject() == "Monitor") or (config.Get_LogToObject() == "monitor")){
         to_monitor = true;
     }
-    if ((config.Get_LogToObject() == "File") or (config.Get_LogToObject() == "file")){
+    else if ((config.Get_LogToObject() == "File") or (config.Get_LogToObject() == "file")){
         to_file = true;
     }
     else{
-        throw runtime_error("The given log location is invalid");
+        std::cout << config.Get_LogToObject() << std::endl;
+
+        throw std::runtime_error("The given log location is invalid");
     }
 
-    if (to both){
+    if (to_both){
         logoutput(config, std::cout, 1, data);
         logout.open(config.Get_LogFilePath());
         logoutput(config, logout, 1, data);
@@ -112,7 +115,7 @@ void logtofile(Configuration config, std::vector<MetaData> data) throw (runtime_
     }
 }
 void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data){
-    output << "Configuration File data \n";
+    output << "Configuration File Data \n";
     output << "Monitor = " << config.Get_MonitorTime() << " ms/cycle \n";
     output << "Processor = " << config.Get_ProcessorTime() << " ms/cycle \n";
     output << "Scanner = " << config.Get_ScannerTime() << " ms/cycle \n";
