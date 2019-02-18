@@ -47,3 +47,56 @@ std::string MetaData::Get_data(){
 int MetaData::Get_time(){
     return Ptime;
 }
+
+void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadata){
+    std::ifstream MetaFile;
+    MetaFile.open(path);
+
+    std::string text;
+    std::string temp;
+    std::vector<std::string> words;
+    bool stop = false;
+    char input;
+    std::string caption;
+    int period;
+    while(MetaFile >> text){
+        //we have hard [space] drive which fucks up this 
+        //algorithm so I'll just append it
+        if (text.find("hard") != std::string::npos){
+            MetaFile >> temp;
+            text.append(" ");
+            text.append(temp);
+        }
+        words.push_back(text);
+    }
+    MetaFile.close();
+
+    for (std::vector<std::string>::iterator it = words.begin() ; it != words.end(); ++it){
+        if (*it == "Start"){
+            std::advance(it, 4);
+        }
+        if (*it == "End"){
+            break;
+        }
+        if (stop){
+            throw runtime_error("Something went wrong in the Meta data file");
+        }
+        text = *it;
+        input = text[0];
+        text.erase(0,2);
+        caption = text.substr(0, text.find('}'));
+        text.erase(0, s.find('}')+1);
+        period = std::stoi(text.substr(0, text.find(;))); 
+
+        if (temp.find('.') != std::string::npos){
+            stop = true;
+            text.erase(text.find('.'), 1);
+        }
+
+        text = *it;
+        text.erase(std::remove(text.begin(), text.end(), ';'), text.end());
+
+        MetaData TEMP(input, caption, period, text);
+        MetaDatadata.push_back(TEMP);
+    }    
+}

@@ -24,6 +24,7 @@ class MetaData{
         MetaData(const MetaData &copy);
         MetaData(char, std::string, int, std::string);
 
+        void LoadMataData(std::string path, std::vector<MetaData> &MetaDatadata) throw (runtime_error) ;
         //setters
         void Set_cipher(char);
         void Set_caption(std::string);
