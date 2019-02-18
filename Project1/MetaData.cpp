@@ -5,7 +5,6 @@ MetaData::MetaData(){
 }
 MetaData::MetaData(const MetaData&copy){
     *this = copy;
-    return *this;
 }
 MetaData::MetaData(char inputcipher, std::string inputcaption, int inputperiod, std::string inputdata){
     cipher = inputcipher;
@@ -48,7 +47,7 @@ int MetaData::Get_time(){
     return Ptime;
 }
 
-void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadata){
+void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadata) throw (std::runtime_error){
     std::ifstream MetaFile;
     MetaFile.open(path);
 
@@ -59,6 +58,7 @@ void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadat
     char input;
     std::string caption;
     int period;
+
     while(MetaFile >> text){
         //we have hard [space] drive which fucks up this 
         //algorithm so I'll just append it
@@ -71,7 +71,7 @@ void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadat
     }
     MetaFile.close();
 
-    for (std::vector<std::string>::iterator it = words.begin() ; it != words.end(); ++it){
+    for (std::vector<std::string>::iterator it = words.begin() ; it != words.end(); it++){
         if (*it == "Start"){
             std::advance(it, 4);
         }
@@ -79,19 +79,22 @@ void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadat
             break;
         }
         if (stop){
-            throw runtime_error("Something went wrong in the Meta data file");
+            throw std::runtime_error("Something went wrong in the Meta data file");
         }
         text = *it;
         input = text[0];
         text.erase(0,2);
         caption = text.substr(0, text.find('}'));
-        text.erase(0, s.find('}')+1);
-        period = std::stoi(text.substr(0, text.find(;))); 
+        text.erase(0, text.find('}')+1);
+        temp = text.substr(0, text.find(';')); 
 
         if (temp.find('.') != std::string::npos){
             stop = true;
             text.erase(text.find('.'), 1);
         }
+
+       //std::cout << temp << std::endl;
+        period = std::stoi(temp);
 
         text = *it;
         text.erase(std::remove(text.begin(), text.end(), ';'), text.end());
