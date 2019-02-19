@@ -1,6 +1,22 @@
+// Class Header Information /////////////////////////
+/**
+ * @file CustomException.h
+ * @brief Header file for CustomException part of Project1
+ * @details This is a class for CustomException part of project1, made for error handling
+ * @version 1.0
+ * @author Pedram Safaei
+ * @bug nothing that can catched
+ * @note bugs have been catched according the instruction
+ */
+
+// Precompiler Directives //////////////////////////////////////////
+//
 #ifndef CUSTOMEXCEPTION
 #define CUSTOMEXCEPTION
+//
 
+// Header Files /////////////////////////////////////////////////// 
+//
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -10,8 +26,12 @@
 #include <iterator>
 #include <algorithm>
 #include <stdexcept>
+//
 
+// Class Definitions ////////////////////////////////////////////// 
+//
 #define throw_line(arg) throw CustomEexception(arg, __FILE__, __LINE__)
+//
 
 class CustomEexception : public std::runtime_error {
     private:
@@ -23,4 +43,7 @@ class CustomEexception : public std::runtime_error {
     
 };
 
+// Terminating Precompiler Directives /////////////////////////////// 
+//
 #endif /* !CUSTOMEXCEPTION */
+//
