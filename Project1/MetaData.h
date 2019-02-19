@@ -1,18 +1,8 @@
 #ifndef METADATA
 #define METADATA
 
-
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <sstream>
-#include <iomanip>
-#include <iterator>
-#include <algorithm>
-#include <stdexcept>
-
 #include "CustomException.h"
+
 
 class MetaData {
     private:
