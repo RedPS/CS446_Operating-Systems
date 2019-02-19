@@ -1,5 +1,21 @@
-#include "MetaData.h"
+// Class Implementation File Information //////////////////////
+/**
+ * @file MetaData.cpp
+ * @brief Implementations for MetaData.h
+ * @details Implemented most functions required for a user created class
+ * @version 1.0
+ * @author Pedram Safaei
+ * @bug nothing that can catched
+ * @note bugs have been catched according the instruction
+ */
 
+// Header Files /////////////////////////////////////////////////// 
+//
+#include "MetaData.h"
+//
+
+// Class/Data Structure Member Implementation ////////////////////// 
+//
 MetaData::MetaData(){
 
 }
@@ -46,11 +62,17 @@ std::string MetaData::Get_data(){
 int MetaData::Get_time(){
     return Ptime;
 }
+bool MetaData::is_empty(std::ifstream& File){
+    return File.peek() == std::ifstream::traits_type::eof();
+}
 
 void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadata) {
     std::ifstream MetaFile;
     MetaFile.open(path);
 
+    if(is_empty(MetaFile)){
+            throw_line("metadata File is empty!");
+        }
     std::string text;
     std::string temp;
     std::vector<std::string> words;
@@ -79,7 +101,7 @@ void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadat
             break;
         }
         if (stop){
-            throw_line("Something went wrong in the Meta data file");
+            throw_line("Something went wrong, can't find end of the file the Meta data file");
         }
         text = *it;
         input = text[0];
@@ -92,8 +114,6 @@ void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadat
             stop = true;
             text.erase(text.find('.'), 1);
         }
-
-       //std::cout << temp << std::endl;
         period = std::stoi(temp);
 
         text = *it;
