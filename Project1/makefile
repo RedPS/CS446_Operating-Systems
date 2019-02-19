@@ -1,8 +1,8 @@
-sim01: sim01.o Configuration.o Functions.o MetaData.o CustomException.o
-	g++ -std=c++0x -Wall sim01.o Configuration.o Functions.o MetaData.o CustomException.o -o sim01
+sim1: sim1.o Configuration.o Functions.o MetaData.o CustomException.o
+	g++ -std=c++0x -Wall sim1.o Configuration.o Functions.o MetaData.o CustomException.o -o sim1
 
-sim01.o: sim01.cpp
-	g++ -c sim01.cpp
+sim1.o: sim1.cpp
+	g++ -c sim1.cpp
 
 Configuration.o: Configuration.cpp Configuration.h
 	g++ -c Configuration.cpp
@@ -17,4 +17,4 @@ CustomException.o: CustomException.h CustomException.cpp
 	g++ -c CustomException.cpp
 
 clean:
-	rm *.o sim01
+	rm *.o sim1
