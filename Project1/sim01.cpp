@@ -1,4 +1,6 @@
-#include "Functions.cpp"
+#include "Functions.h"
+
+//using namespace Functions;
 
 int main(int argc, char *argv[]){
     try{
@@ -11,9 +13,9 @@ int main(int argc, char *argv[]){
             config.LoadConfigurationFile(argv[1]);
             data.LoadMataData(config.Get_MetaDataFilePath(), MetaDatadata);
             for (auto& i : MetaDatadata){
-                ProcTime(config, i, status, pstatus);
+                Functions::ProcTime(config, i, status, pstatus);
             }
-            logtofile(config, MetaDatadata);
+            Functions::logtofile(config, MetaDatadata);
             return 0;
         }
         else if (argc < 2){
