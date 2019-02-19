@@ -1,8 +1,4 @@
 #include "MetaData.h"
-//#include "CustomException.cpp"
-//#define throw_line(arg) throw CustomEexception(arg, __FILE__, __LINE__)
-
-//#define throw_line(arg) throw CustomEexception(arg, __FILE__, __LINE__)
 
 MetaData::MetaData(){
 
