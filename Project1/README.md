@@ -8,7 +8,7 @@ Please compile using the provided makefile and run the simulation using the comm
 below:
 
 ```
-./sim01 CONFIG.conf
+./sim1 CONFIG.conf
 ```
 ## Implementation
 I have decided to make this program as modular as I could since we were
