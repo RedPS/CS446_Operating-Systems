@@ -1,5 +1,21 @@
-#include "Configuration.h"
+// Class Implementation File Information //////////////////////
+/**
+ * @file Configuration.cpp
+ * @brief Implementations for Configuration.h
+ * @details Implemented most functions required for a user created class
+ * @version 1.0
+ * @author Pedram Safaei
+ * @bug nothing that can catched
+ * @note bugs have been catched according the instruction
+ */
 
+// Header Files /////////////////////////////////////////////////// 
+//
+#include "Configuration.h"
+//
+
+// Class/Data Structure Member Implementation ////////////////////// 
+//
 Configuration::Configuration() {
 
 }
@@ -83,11 +99,17 @@ std::string Configuration::Get_LogFilePath(){
     return LogFilePath;
 }
 
+bool Configuration::is_empty(std::ifstream& File){
+    return File.peek() == std::ifstream::traits_type::eof();
+}
 void Configuration::LoadConfigurationFile(std::string PathToConfig){
     std::ifstream ConfigurationFile;
     ConfigurationFile.open(PathToConfig);
 
     if(ConfigurationFile){
+        if(is_empty(ConfigurationFile)){
+            throw_line("Config File is empty!");
+        }
         std::string text;
         std::string FilePath;
         std::vector<std::string> words;
@@ -147,7 +169,7 @@ void Configuration::LoadConfigurationFile(std::string PathToConfig){
         }
     }
     else{
-        throw std::runtime_error("error: Can't open the configuration file");
+        throw_line("error: Can't open the configuration file");
     }
 
     ConfigurationFile.close();
@@ -160,6 +182,6 @@ void Configuration::LoadConfigurationFile(std::string PathToConfig){
            (KeyboardTime  > 0) and 
            (MemoryTime    > 0) and 
            (ProjectorTime > 0) )){
-               throw std::runtime_error("error: Wrong data in configuration");
+               throw_line("error: Wrong data in configuration");
            }
 }

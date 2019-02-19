@@ -1,7 +1,24 @@
+// Class Header Information /////////////////////////
+/**
+ * @file Configuration.h
+ * @brief Header file for Configuration part of Project1
+ * @details This is a class for Configuration part of project1
+ * @version 1.0
+ * @author Pedram Safaei
+ * @bug nothing that can catched
+ * @note bugs have been catched according the instruction
+ */
+
+// Precompiler Directives //////////////////////////////////////////
+//
 #ifndef CONFIGURATION
 #define CONFIGURATION
+//
 
+// Header Files /////////////////////////////////////////////////// 
+//
 #include "CustomException.h"
+//
 
 class Configuration {
 
@@ -30,7 +47,7 @@ class Configuration {
         ~Configuration();
         //Read all the info
         void LoadConfigurationFile(std::string PathToConfig);
-
+        bool is_empty(std::ifstream& File);
         //setters
         void Set_Version_Phase(double VP);
         void Set_MetaDataFilePath(std::string MDFP);
@@ -64,4 +81,7 @@ class Configuration {
 
 };
 
+// Terminating Precompiler Directives /////////////////////////////// 
+//
 #endif /* !CONFIGURATION */
+//
