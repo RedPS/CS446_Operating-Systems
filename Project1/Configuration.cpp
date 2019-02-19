@@ -1,5 +1,6 @@
 #include "Configuration.h"
-#include "CustomException.cpp"
+//#include "CustomException.cpp"
+//#define throw_line(arg) throw CustomEexception(arg, __FILE__, __LINE__)
 
 
 Configuration::Configuration() {
