@@ -1,4 +1,4 @@
-#CS 446 Project 1
+# CS 446 Project 1
 
 ## General information
 For this program we will be simulating an OS environment. This program
@@ -12,10 +12,10 @@ have tried to separate everything into their own components by creating
 classes and making sure to follow the OOP principle.
 
 ## Data Structure & Algorithm
-Most of the data structure used in this program is consisted of 
-vectors, I saw no need for using other data structures as a simple 
+Most of the data structure used in this program is consisted of
+vectors, I saw no need for using other data structures as a simple
 array with easy access (vectors) would suffice. If a program becomes larger however it is a good idea to start thinking about migrating to other data structures maybe a combination of queues and binary trees to make accessing instructions faster.
-I am also using STL to make accessing vectors, printing, erasing or modifying them in genral easier. 
+I am also using STL to make accessing vectors, printing, erasing or modifying them in genral easier.
 
 ## Detail about functions
 Functions used in classes are self explainatory as they are normal functions used in anyother classes. I will try to go over the functions used in the \"Functions\" file since they are not part of any classes. I have also put them into their own namespace in case I don't want to use them in the future or other functions gets added to them it will be easier to keep track of them.
