@@ -1,13 +1,6 @@
-#include "Configuration.cpp"
-#include "MetaData.cpp"
-
-
-
-void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data);
-void logtofile(Configuration config, std::vector<MetaData> data) throw (std::runtime_error);
-void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus) throw (std::runtime_error);
-
-
+#include"Functions.h"
+namespace Functions
+{
 void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus) throw (std::runtime_error) {
     if (data.Get_cipher() == 'S'){
         if (data.Get_caption() == "begin" and status == 0){
@@ -80,22 +73,21 @@ void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus
 
 void logtofile(Configuration config, std::vector<MetaData> data) throw (std::runtime_error) {
     std::ofstream logout;
-    bool to_monitor;
-    bool to_file;
-    bool to_both;
+    bool to_monitor = false;
+    bool to_file = false;
+    bool to_both = false;
 
     if (config.Get_LogToObject() == "Both") {
         to_both = true;
     }
-    else if ((config.Get_LogToObject() == "Monitor") or (config.Get_LogToObject() == "monitor")){
+    else if ((config.Get_LogToObject() == "monitor")){
         to_monitor = true;
     }
-    else if ((config.Get_LogToObject() == "File") or (config.Get_LogToObject() == "file")){
+    else if ((config.Get_LogToObject() == "file")){
         to_file = true;
     }
     else{
         std::cout << config.Get_LogToObject() << std::endl;
-
         throw std::runtime_error("The given log location is invalid");
     }
 
@@ -142,4 +134,5 @@ void logoutput(Configuration config, std::ostream& output, int status, std::vect
             output << DATA.Get_data() << " - " << DATA.Get_time() << " ms\n";
         }
     }
+}
 }
