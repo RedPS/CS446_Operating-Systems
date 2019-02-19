@@ -2,6 +2,7 @@
 #include "MetaData.cpp"
 
 
+
 void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data);
 void logtofile(Configuration config, std::vector<MetaData> data) throw (std::runtime_error);
 void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus) throw (std::runtime_error);
@@ -79,7 +80,6 @@ void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus
 
 void logtofile(Configuration config, std::vector<MetaData> data) throw (std::runtime_error) {
     std::ofstream logout;
-
     bool to_monitor;
     bool to_file;
     bool to_both;
@@ -116,13 +116,13 @@ void logtofile(Configuration config, std::vector<MetaData> data) throw (std::run
 }
 void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data){
     output << "Configuration File Data \n";
-    output << "Monitor = " << config.Get_MonitorTime() << " ms/cycle \n";
-    output << "Processor = " << config.Get_ProcessorTime() << " ms/cycle \n";
-    output << "Scanner = " << config.Get_ScannerTime() << " ms/cycle \n";
+    output << "Monitor = "    << config.Get_MonitorTime()   << " ms/cycle \n";
+    output << "Processor = "  << config.Get_ProcessorTime() << " ms/cycle \n";
+    output << "Scanner = "    << config.Get_ScannerTime()   << " ms/cycle \n";
     output << "Hard Drive = " << config.Get_HardDriveTime() << " ms/cycle \n";
-    output << "Keyboard = " << config.Get_KeyboardTime() << " ms/cycle \n";
-    output << "Memory = " << config.Get_MemoryTime() << " ms/cycle \n";
-    output << "Projector = " << config.Get_ProjectorTime() << " ms/cycle \n";
+    output << "Keyboard = "   << config.Get_KeyboardTime()  << " ms/cycle \n";
+    output << "Memory = "     << config.Get_MemoryTime()    << " ms/cycle \n";
+    output << "Projector = "  << config.Get_ProjectorTime() << " ms/cycle \n";
 
     if (status == 1 ){
         output << "Logged to: monitor and " << config.Get_LogFilePath() << std::endl;
@@ -133,9 +133,7 @@ void logoutput(Configuration config, std::ostream& output, int status, std::vect
     if (status == 3){
         output << "Logged to " << config.Get_LogFilePath() << std::endl;
     }
-
     output << std::endl;
-
     output << "Meta-Data Metrics \n";
 
     for (std::vector<MetaData>::iterator it = data.begin() ; it != data.end(); ++it){
