@@ -1,5 +1,5 @@
-//#ifndef CUSTOMEXCEPTION
-//#define CUSTOMEXCEPTION
+#ifndef CUSTOMEXCEPTION
+#define CUSTOMEXCEPTION
 
 #include <iostream>
 #include <sstream>
@@ -17,4 +17,4 @@ class CustomEexception : public std::runtime_error {
 };
 
 
-//#endif /* !CUSTOMEXCEPTION */
+#endif /* !CUSTOMEXCEPTION */

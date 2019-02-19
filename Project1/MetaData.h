@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <stdexcept>
 
+#include "CustomException.h"
 
 class MetaData {
     private:
@@ -26,7 +27,7 @@ class MetaData {
         MetaData(const MetaData &copy);
         MetaData(char, std::string, int, std::string);
 
-        void LoadMataData(std::string path, std::vector<MetaData> &MetaDatadata) throw (std::runtime_error) ;
+        void LoadMataData(std::string path, std::vector<MetaData> &MetaDatadata) ;
         //setters
         void Set_cipher(char);
         void Set_caption(std::string);

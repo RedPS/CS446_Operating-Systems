@@ -11,7 +11,6 @@
 #include <algorithm>
 #include <stdexcept>
 
-
 class Configuration {
 
     private:

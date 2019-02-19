@@ -1,5 +1,6 @@
 #include "MetaData.h"
 //#include "CustomException.cpp"
+#define throw_line(arg) throw CustomEexception(arg, __FILE__, __LINE__)
 
 
 MetaData::MetaData(){
@@ -49,7 +50,7 @@ int MetaData::Get_time(){
     return Ptime;
 }
 
-void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadata) throw (std::runtime_error){
+void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadata) {
     std::ifstream MetaFile;
     MetaFile.open(path);
 
@@ -81,7 +82,7 @@ void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadat
             break;
         }
         if (stop){
-            throw std::runtime_error("Something went wrong in the Meta data file");
+            throw_line("Something went wrong in the Meta data file");
         }
         text = *it;
         input = text[0];
