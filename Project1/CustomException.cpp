@@ -1,5 +1,4 @@
 #include "CustomException.h"
-#define throw_line(arg) throw CustomEexception(arg, __FILE__, __LINE__)
 
 CustomEexception::CustomEexception(const std::string &arg, const char *file, int line):
         std::runtime_error(arg) {
