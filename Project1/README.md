@@ -4,7 +4,12 @@
 For this program we will be simulating an OS environment. This program
 accepts a set of instructions from a metadata file (.mdf) and it will
 use a configuration file to set up the environment.
+Please compile using the provided makefile and run the simulation using the command
+below:
 
+```
+./sim01 CONFIG.conf
+```
 ## Implementation
 I have decided to make this program as modular as I could since we were
 informed that future projects would build on top of this one. Hence I
