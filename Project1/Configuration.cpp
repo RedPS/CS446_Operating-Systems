@@ -1,4 +1,6 @@
 #include "Configuration.h"
+#include "CustomException.cpp"
+
 
 Configuration::Configuration() {
 
@@ -83,7 +85,7 @@ std::string Configuration::Get_LogFilePath(){
     return LogFilePath;
 }
 
-void Configuration::LoadConfigurationFile(std::string PathToConfig) throw (std::runtime_error){
+void Configuration::LoadConfigurationFile(std::string PathToConfig){
     std::ifstream ConfigurationFile;
     ConfigurationFile.open(PathToConfig);
 
@@ -97,16 +99,16 @@ void Configuration::LoadConfigurationFile(std::string PathToConfig) throw (std::
         }
         for (std::vector<std::string>::iterator it = words.begin() ; it != words.end(); it++){
             if (*it == "File"){
-                FilePath = *(it+2);
-                if (FilePath.substr(FilePath.find_last_of(".") + 1) == "mdf"){
-                    Set_MetaDataFilePath(FilePath);        
+                if (*(it+1) =="Path:" and *(it-1) != "Log")
+                { 
+                    FilePath = *(it+2);
+                    if (FilePath.substr(FilePath.find_last_of(".") + 1) == "mdf"){
+                        Set_MetaDataFilePath(FilePath);        
+                    }
+                    else{
+                        throw_line("File Path for Meta Data does not have \"mdf\" extension");
+                    }
                 }
-                /*
-                else{
-                    std::cout << FilePath.substr(FilePath.find_last_of(".") + 1) <<std::endl;
-                    throw std::runtime_error("File Path for Meta Data does not have \"mdf\" extension");
-                }
-                */
             }
             if (*it == "Version/Phase:"){
                 Set_Version_Phase(std::stod(*(it+1)));
@@ -135,16 +137,14 @@ void Configuration::LoadConfigurationFile(std::string PathToConfig) throw (std::
             if (*it == "Log:"){
                 Set_LogToObject(*(it+3));
             }
-            if (*it == "Log"){
-                FilePath = *(it+3);
-                if (FilePath.substr(FilePath.find_last_of(".") + 1) == "lgf"){
-                    Set_LogFilePath(FilePath);       
-                }
-                /*
-                else{
-                    throw std::runtime_error("File Path for Log File does not have \"lgf\" extension");
-                }
-                */
+            if (*it == "Log" and *(it+1) != "to"){
+                    FilePath = *(it+3);
+                    if (FilePath.substr(FilePath.find_last_of(".") + 1) == "lgf"){
+                    Set_LogFilePath(FilePath);
+                    }
+                    else{
+                        throw_line("File Path for Log File does not have \"lgf\" extension");
+                    }
             }
         }
     }
