@@ -1,7 +1,24 @@
+// Program Information //////////////////////
+/**
+ * @file Functions.cpp
+ * @brief implementation for Functions.h 
+ * @details This file is more implementations of process time, logs, outputs.
+ * @version 1.0
+ * @author Pedram Safaei
+ * @bug nothing that can catched
+ * @note bugs have been catched according the instruction
+ */
+
+// Header Files /////////////////////////////////////////////////// 
+//
 #include"Functions.h"
+//
+
 namespace Functions
 {
-void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus) throw (std::runtime_error) {
+// Free Function Implementation /////////////////////////////////// 
+//
+void ProcessTheTime(Configuration config, MetaData& data, int& status, int &progstatus) {
     if (data.Get_cipher() == 'S'){
         if (data.Get_caption() == "begin" and status == 0){
             status = 1;
@@ -10,7 +27,7 @@ void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus
             status = 2;
         }
         else {
-            throw std::runtime_error("\"begin\" or \"finish\" are missing ");
+            throw_line("\"begin\" or \"finish\" are missing CODE S (case sensitive)");
         }
     }
     else if (data.Get_cipher() == 'A'){
@@ -21,8 +38,7 @@ void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus
             progstatus = 0;
         }
         else {
-            std::cout << progstatus  << std::endl;
-            throw std::runtime_error("\"begin\" or \"finish\" are missing ");
+            throw_line("\"begin\" or \"finish\" are missing CODE A (case sensitive) ");
         }
     }
     if (data.Get_cipher() == 'P' and data.Get_caption() == "run"){
@@ -39,7 +55,7 @@ void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus
             data.Set_time(data.Get_period() * config.Get_HardDriveTime());
         }
         else{
-            throw std::runtime_error("Can't find the caption for cipher \'I\'");
+            throw_line("Can't find the caption for cipher (CODE) \'I\'");
 
         }
     }
@@ -54,7 +70,7 @@ void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus
             data.Set_time(data.Get_period() * config.Get_HardDriveTime());
         }
         else{
-            throw std::runtime_error("Can't find the caption for cipher \'O\'");
+            throw_line("Can't find the caption for cipher (CODE) \'O\'");
         }
     }
     if (data.Get_cipher() == 'M'){
@@ -65,13 +81,16 @@ void ProcTime(Configuration config, MetaData& data, int& status, int &progstatus
             data.Set_time(data.Get_period() * config.Get_MemoryTime());
         }
         else{
-            throw std::runtime_error("Can't find the caption for cipher \'M\'");
+            throw_line("Can't find the caption (description) for cipher (code) \'M\'");
         }
     }
 
 }
+//
 
-void logtofile(Configuration config, std::vector<MetaData> data) throw (std::runtime_error) {
+// Free Function Implementation /////////////////////////////////// 
+//
+void logtofile(Configuration config, std::vector<MetaData> data){
     std::ofstream logout;
     bool to_monitor = false;
     bool to_file = false;
@@ -87,8 +106,7 @@ void logtofile(Configuration config, std::vector<MetaData> data) throw (std::run
         to_file = true;
     }
     else{
-        std::cout << config.Get_LogToObject() << std::endl;
-        throw std::runtime_error("The given log location is invalid");
+        throw_line("The given log location is invalid (valid locatons are Both, monitor, file [case sensitive])");
     }
 
     if (to_both){
@@ -106,6 +124,9 @@ void logtofile(Configuration config, std::vector<MetaData> data) throw (std::run
         logout.close();
     }
 }
+//
+// Free Function Implementation /////////////////////////////////// 
+//
 void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data){
     output << "Configuration File Data \n";
     output << "Monitor = "    << config.Get_MonitorTime()   << " ms/cycle \n";
@@ -135,4 +156,6 @@ void logoutput(Configuration config, std::ostream& output, int status, std::vect
         }
     }
 }
+// Free Function Implementation /////////////////////////////////// 
+//
 }
