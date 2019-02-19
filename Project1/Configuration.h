@@ -3,7 +3,6 @@
 
 #include "CustomException.h"
 
-
 class Configuration {
 
     private:
