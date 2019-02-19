@@ -26,11 +26,3 @@ int main(int argc, char *argv[]){
         std::cerr << e.what() << std::endl;
     }
 }
-
-/*
-try{
-     throw_line();
-}catch(const std::runtime_error& e){
-    std::cerr << e.what() << std::endl;
-}
-*/
