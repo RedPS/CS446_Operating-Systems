@@ -11,13 +11,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-
 #define throw_line(arg) throw CustomEexception(arg, __FILE__, __LINE__)
-
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
-#include <string>
 
 class CustomEexception : public std::runtime_error {
     private:
@@ -28,6 +22,5 @@ class CustomEexception : public std::runtime_error {
         const char* what() const throw();
     
 };
-
 
 #endif /* !CUSTOMEXCEPTION */
