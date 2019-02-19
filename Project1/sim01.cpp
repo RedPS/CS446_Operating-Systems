@@ -1,7 +1,5 @@
 #include "Functions.h"
 
-//using namespace Functions;
-
 int main(int argc, char *argv[]){
     try{
         Configuration config;
