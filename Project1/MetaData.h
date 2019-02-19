@@ -12,7 +12,8 @@
 #include <algorithm>
 #include <stdexcept>
 
-class MetaData{
+
+class MetaData {
     private:
         char cipher;
         std::string caption;
