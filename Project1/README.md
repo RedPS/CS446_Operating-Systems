@@ -8,7 +8,13 @@ Please compile using the provided makefile and run the simulation using the comm
 below:
 
 ```
+make
 ./sim1 CONFIG.conf
+```
+to  clean use the below command 
+
+```
+make clean
 ```
 ## Implementation
 I have decided to make this program as modular as I could since we were
