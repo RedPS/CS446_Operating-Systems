@@ -18,6 +18,14 @@ namespace Functions
 {
 // Free Function Implementation /////////////////////////////////// 
 //
+/**
+ * @brief Processes the time
+ * @param config: Configuration object
+ * @param data: Metadata object
+ * @param status: status of the system
+ * @param progstatus: status of the programstatus
+ * @return VOID: Nothing
+ */
 void ProcessTheTime(Configuration config, MetaData& data, int& status, int &progstatus) {
     if (data.Get_cipher() == 'S'){
         if (data.Get_caption() == "begin" and status == 0){
@@ -90,6 +98,12 @@ void ProcessTheTime(Configuration config, MetaData& data, int& status, int &prog
 
 // Free Function Implementation /////////////////////////////////// 
 //
+/**
+ * @brief logtofile
+ * @param config: Configuration object
+ * @param data: Metadata object
+ * @return VOID: Nothing
+ */
 void logtofile(Configuration config, std::vector<MetaData> data){
     std::ofstream logout;
     bool to_monitor = false;
@@ -127,6 +141,14 @@ void logtofile(Configuration config, std::vector<MetaData> data){
 //
 // Free Function Implementation /////////////////////////////////// 
 //
+/**
+ * @brief logtofile
+ * @param config: Configuration object
+ * @param output: ostream so we know where to print
+ * @param status: system status tells where it is printing, (both,  monitor, file)
+ * @param data: vector of metadata object type holds the metadata data
+ * @return VOID: Nothing
+ */
 void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data){
     output << "Configuration File Data \n";
     output << "Monitor = "    << config.Get_MonitorTime()   << " ms/cycle \n";
@@ -156,6 +178,5 @@ void logoutput(Configuration config, std::ostream& output, int status, std::vect
         }
     }
 }
-// Free Function Implementation /////////////////////////////////// 
 //
 }
