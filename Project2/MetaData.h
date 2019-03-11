@@ -31,6 +31,8 @@ class MetaData {
         double ProcessTime;
         double StartTime;
 
+    
+
     public:
         MetaData();
         MetaData(const MetaData &copy);

@@ -24,9 +24,8 @@ static std::vector<std::string> logf;
 namespace Functions {
     // Free Function Prototypes /////////////////////////////////////// 
     //
-    double ProcessThread(int);
     void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data);
     void logtofile(Configuration config, std::vector<MetaData> data);
-    void ProcessTheTime(Configuration config, MetaData& data);
+    void ProcessTheTime(Configuration config, MetaData& data, ProcessControl&);
     //
 }

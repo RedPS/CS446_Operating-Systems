@@ -24,20 +24,29 @@ evnvironment for us. Which is again just a textfile (conf extention)
 */
 // Main Function Implementation /////////////////////////////////// 
 //
+ProcessControl p;
 
 int main(int argc, char *argv[]){
     //
     // program code
     //
     try{
+        p.Set_ProcessState(4);
         Configuration config;
         MetaData data;
         if (argc == 2){
             std::vector<MetaData> MetaDatadata;
             config.LoadConfigurationFile(argv[1]);
             data.LoadMataData(config.Get_MetaDataFilePath(), MetaDatadata);
+
+            //std::deque<ProcessControl> A;
+            //ProcessControl p;
+            //p.createProcesses(A,MetaDatadata);
+           // std::cout << p.Get_ProcessCount() << std::endl;
+
+
             for (auto& i : MetaDatadata){
-                Functions::ProcessTheTime(config, i);
+                Functions::ProcessTheTime(config, i, p);
             }
             Functions::logtofile(config, MetaDatadata);
             return 0;
