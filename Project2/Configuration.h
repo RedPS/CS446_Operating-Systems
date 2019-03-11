@@ -38,9 +38,15 @@ class Configuration {
         //get the outpout log info
         std::string LogToObject;
         std::string LogFilePath;
+        std::string TypeMemory;
+        int Memory;
+
+
     //end
 
     public:
+        int Set_memory();
+        int Get_memory();
         //constructors
         Configuration();
         Configuration(const Configuration &copy);

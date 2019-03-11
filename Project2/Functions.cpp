@@ -13,11 +13,11 @@
 //
 #include"Functions.h"
 //
-
 namespace Functions
 {
 // Free Function Implementation /////////////////////////////////// 
 //
+
 /**
  * @brief Processes the time
  * @param config: Configuration object
@@ -26,56 +26,104 @@ namespace Functions
  * @param progstatus: status of the programstatus
  * @return VOID: Nothing
  */
-void ProcessTheTime(Configuration config, MetaData& data, int& status, int &progstatus) {
+void ProcessTheTime(Configuration config, MetaData& data) {
+    int cap;
+    ProcessControl p;
+    p.Set_ProcessState(4);
     if (data.Get_cipher() == 'S'){
-        if (data.Get_caption() == "begin" and status == 0){
-            status = 1;
+        if (data.Get_caption() == "begin" and p.Get_ProcessState() == 4){
+             p.Set_ProcessState(0);
+            auto TimeCurrent = std::chrono::system_clock::now();
+            data.Set_StartTime(std::chrono::duration<double>(TimeCurrent - TimeStart).count());
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Simulator program starting");
         }
-        else if (data.Get_caption() == "finish" and status == 1 and !progstatus){
-            status = 2;
+        else if (data.Get_caption() == "finish" and p.Get_ProcessState() == 1){
+            p.Set_ProcessState(4);
+            auto TimeCurrent = std::chrono::system_clock::now();
+            data.Set_StartTime(std::chrono::duration<double>(TimeCurrent - TimeStart).count());
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Simulator program ending");
         }
         else {
             throw_line("\"begin\" or \"finish\" are missing CODE S (case sensitive)");
         }
     }
     else if (data.Get_cipher() == 'A'){
-        if(data.Get_caption() == "begin" and progstatus == 0){
-            progstatus = 1;
+        if(data.Get_caption() == "begin" and p.Get_ProcessState() == 0){
+            p.Set_ProcessState(1);
+            auto TimeCurrent = std::chrono::system_clock::now();
+            data.Set_StartTime(std::chrono::duration<double>(TimeCurrent - TimeStart).count());
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "OS: starting process 1");
         }
-        else if (data.Get_caption() == "finish" and progstatus == 1){
-            progstatus = 0;
+        else if (data.Get_caption() == "finish" and p.Get_ProcessState() == 1){
+            auto TimeCurrent = std::chrono::system_clock::now();
+            data.Set_StartTime(std::chrono::duration<double>(TimeCurrent - TimeStart).count());
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "OS: Removing process 1");
         }
         else {
             throw_line("\"begin\" or \"finish\" are missing CODE A (case sensitive) ");
         }
     }
     if (data.Get_cipher() == 'P' and data.Get_caption() == "run"){
-        data.Set_time(data.Get_period() * config.Get_ProcessorTime());
+        p.Set_ProcessState(2);
+        cap = (data.Get_period() * config.Get_ProcessorTime());
+        p.RunProcess(cap, data);
+        logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Process 1: start Processing action");
+        logf.push_back(std::to_string(data.Get_ProcessTime()) + " - " + "Process 1: end Processing action");
+        p.Set_ProcessState(1);
     }
     if (data.Get_cipher() == 'I'){
         if (data.Get_caption() == "scanner"){
-            data.Set_time(data.Get_period() * config.Get_ScannerTime());
+           p.Set_ProcessState(2);
+            cap = (data.Get_period() * config.Get_ScannerTime());
+            p.RunProcess(cap, data);
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Process 1: start scanner input");
+            logf.push_back(std::to_string(data.Get_ProcessTime()) + " - " + "Process 1: end scanner input");
+            p.Set_ProcessState(1);
         }
         else if(data.Get_caption() == "keyboard"){
-            data.Set_time(data.Get_period() * config.Get_KeyboardTime());
+            p.Set_ProcessState(2);
+            cap = (data.Get_period() * config.Get_KeyboardTime());
+            p.RunProcess(cap, data);
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Process 1: start keyboard input");
+            logf.push_back(std::to_string(data.Get_ProcessTime()) + " - " + "Process 1: end keyboard input");
+            p.Set_ProcessState(1);  
         }
         else if (data.Get_caption() == "hard drive"){
-            data.Set_time(data.Get_period() * config.Get_HardDriveTime());
+            p.Set_ProcessState(2);
+            cap = (data.Get_period() * config.Get_HardDriveTime());
+            p.RunProcess(cap, data);
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Process 1: start hard drive input");
+            logf.push_back(std::to_string(data.Get_ProcessTime()) + " - " + "Process 1: end hard drive input");
+            p.Set_ProcessState(1);
         }
         else{
             throw_line("Can't find the caption for cipher (CODE) \'I\'");
-
         }
     }
     if (data.Get_cipher() == 'O'){
         if (data.Get_caption() == "monitor"){
-            data.Set_time(data.Get_period() * config.Get_MonitorTime());
+            p.Set_ProcessState(2);
+            cap = (data.Get_period() * config.Get_MonitorTime());
+            p.RunProcess(cap, data);
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Process 1: start monitor output");
+            logf.push_back(std::to_string(data.Get_ProcessTime()) + " - " + "Process 1: end monitor output");
+            p.Set_ProcessState(1);
         }
         else if(data.Get_caption() == "projector"){
-            data.Set_time(data.Get_period() * config.Get_ProjectorTime());
+            p.Set_ProcessState(2);
+            cap = (data.Get_period() * config.Get_ProjectorTime());
+            p.RunProcess(cap, data);
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Process 1: start projector output");
+            logf.push_back(std::to_string(data.Get_ProcessTime()) + " - " + "Process 1: end projector output");
+            p.Set_ProcessState(1);
         }
         else if (data.Get_caption() == "hard drive"){
-            data.Set_time(data.Get_period() * config.Get_HardDriveTime());
+            p.Set_ProcessState(2);
+            cap = (data.Get_period() * config.Get_HardDriveTime());
+            p.RunProcess(cap, data);
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Process 1: start hard drive output");
+            logf.push_back(std::to_string(data.Get_ProcessTime()) + " - " + "Process 1: end hard drive output");
+            p.Set_ProcessState(1);
         }
         else{
             throw_line("Can't find the caption for cipher (CODE) \'O\'");
@@ -83,10 +131,21 @@ void ProcessTheTime(Configuration config, MetaData& data, int& status, int &prog
     }
     if (data.Get_cipher() == 'M'){
         if (data.Get_caption() == "allocate"){
-            data.Set_time(data.Get_period() * config.Get_MemoryTime());
+            MEMORYLOCATION M;
+            p.Set_ProcessState(2);
+            cap = (data.Get_period() * config.Get_MemoryTime());
+            p.RunProcess(cap, data);
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Process 1: allocating memory");
+            logf.push_back(std::to_string(data.Get_ProcessTime()) + " - " + "Process 1: memory allocated at 0x" + M.Get_MemoryLocation() );
+            p.Set_ProcessState(1);
         }
         else if(data.Get_caption() == "block"){
-            data.Set_time(data.Get_period() * config.Get_MemoryTime());
+            p.Set_ProcessState(2);
+            cap = (data.Get_period() * config.Get_MemoryTime());
+            p.RunProcess(cap, data);
+            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Process 1: start memory blocking");
+            logf.push_back(std::to_string(data.Get_ProcessTime()) + " - " + "Process 1: end memory blocking");
+            p.Set_ProcessState(1);
         }
         else{
             throw_line("Can't find the caption (description) for cipher (code) \'M\'");
@@ -150,6 +209,7 @@ void logtofile(Configuration config, std::vector<MetaData> data){
  * @return VOID: Nothing
  */
 void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data){
+  /*
     output << "Configuration File Data \n";
     output << "Monitor = "    << config.Get_MonitorTime()   << " ms/cycle \n";
     output << "Processor = "  << config.Get_ProcessorTime() << " ms/cycle \n";
@@ -177,6 +237,10 @@ void logoutput(Configuration config, std::ostream& output, int status, std::vect
             output << DATA.Get_data() << " - " << DATA.Get_time() << " ms\n";
         }
     }
+    */
+   for (auto it= logf.begin(); it != logf.end(); it++){
+       output << std::fixed << std::setprecision(6) << *it << std::endl;
+   }
 }
 //
 }

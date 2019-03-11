@@ -263,6 +263,17 @@ void Configuration::LoadConfigurationFile(std::string PathToConfig){
             if (*it == "Projector"){
                 Set_ProjectorTime(std::stoi(*(it+4)));
             }
+            if(*it == "System"){
+                Memory  = std::stoi(*(it+3));
+                TypeMemory = (*(it+2));
+                if(TypeMemory.find("Gbytes") != std::string::npos){
+                    Memory *= 1000000;
+                }else if(TypeMemory.find("Mbytes") != std::string::npos){
+
+                }else if(TypeMemory.find("kbytes") == std::string::npos){
+                    throw_line("Invalid System Memory");
+                }
+            }
             if (*it == "Log:"){
                 Set_LogToObject(*(it+3));
             }

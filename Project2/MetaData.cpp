@@ -41,6 +41,18 @@ MetaData::MetaData(char inputcipher, std::string inputcaption, int inputperiod, 
 
 //setters //////////////////////////////////////
 //
+void MetaData::Set_StartTime(double ST){
+    StartTime = ST;
+}
+void MetaData::Set_ProcessTime(double PT){
+    ProcessTime = PT;
+}
+double MetaData::Get_StartTime(){
+    return StartTime;
+}
+double MetaData::Get_ProcessTime(){
+    return ProcessTime;
+}
 /**
  * @brief Setter for meta data class
  * used to set the cipher or code as this assignment calls it!

@@ -13,13 +13,20 @@
 //
 #include "Configuration.h"
 #include "MetaData.h"
+#include "Clock.h"
+#include "ProcessControl.h"
+#include "MemoryAllocation.h"
+const auto TimeStart = std::chrono::system_clock::now();
+static std::vector<std::string> logf;
 //
+
 
 namespace Functions {
     // Free Function Prototypes /////////////////////////////////////// 
     //
+    double ProcessThread(int);
     void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data);
     void logtofile(Configuration config, std::vector<MetaData> data);
-    void ProcessTheTime(Configuration config, MetaData& data, int& status, int &progstatus);
+    void ProcessTheTime(Configuration config, MetaData& data);
     //
 }

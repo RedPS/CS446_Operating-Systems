@@ -24,6 +24,7 @@ evnvironment for us. Which is again just a textfile (conf extention)
 */
 // Main Function Implementation /////////////////////////////////// 
 //
+
 int main(int argc, char *argv[]){
     //
     // program code
@@ -31,14 +32,12 @@ int main(int argc, char *argv[]){
     try{
         Configuration config;
         MetaData data;
-        int status = 0;
-        int pstatus = 0;
         if (argc == 2){
             std::vector<MetaData> MetaDatadata;
             config.LoadConfigurationFile(argv[1]);
             data.LoadMataData(config.Get_MetaDataFilePath(), MetaDatadata);
             for (auto& i : MetaDatadata){
-                Functions::ProcessTheTime(config, i, status, pstatus);
+                Functions::ProcessTheTime(config, i);
             }
             Functions::logtofile(config, MetaDatadata);
             return 0;

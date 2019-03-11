@@ -28,6 +28,9 @@ class MetaData {
         std::string data;
         int Ptime;
 
+        double ProcessTime;
+        double StartTime;
+
     public:
         MetaData();
         MetaData(const MetaData &copy);
@@ -41,13 +44,16 @@ class MetaData {
         void Set_period(int);
         void Set_data(std::string);
         void Set_time(int);
-
+        void Set_StartTime(double);
+        void Set_ProcessTime(double);
         //getters
         char Get_cipher();
         std::string Get_caption();
         int Get_period();
         std::string Get_data();
         int Get_time();
+        double Get_StartTime();
+        double Get_ProcessTime();
 };
 
 // Terminating Precompiler Directives /////////////////////////////// 
