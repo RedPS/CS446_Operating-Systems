@@ -1,7 +1,24 @@
+// Class Header Information /////////////////////////
+/**
+ * @file MemoryAllocation.h
+ * @brief Implementations for MemoryAllocation.h
+ * @details Implemented most functions required for a user created class
+ * @version 1.0
+ * @author Pedram Safaei
+ * @bug nothing that can catched
+ * @note bugs have been catched according the instruction
+ */
+
+// Precompiler Directives //////////////////////////////////////////
+//
 #ifndef MEMORYALOCATION
 #define MEMORYALOCATION
-#include "CustomException.h"
+//
 
+// Header Files /////////////////////////////////////////////////// 
+//
+#include "CustomException.h"
+//
 class MEMORYLOCATION{
 private:
     std::string input;
