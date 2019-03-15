@@ -28,19 +28,13 @@ namespace Functions
  * @param progstatus: status of the programstatus
  * @return VOID: Nothing
  */
-
 void ProcessTheTime(Configuration config, MetaData& data, ProcessControl&p) {
     int cap;
     static int numproc = 0;
-    //for (auto it= MetaDatadata.begin(); it!= MetaDatadata.end(); ++it){
-      //  std::cout << it->Get_cipher() << " " << it->Get_caption() << std::endl;
     if(data.Get_cipher() == 'A' and data.Get_caption() == "begin"){
         ++numproc;
-        //std::cout << "Process " << numproc << std::endl;
     }
-   // }
 
-   // std::cout << "Process state: "<< p.Get_ProcessState() << std::endl;
     if (data.Get_cipher() == 'S'){
         if (data.Get_caption() == "begin" and p.Get_ProcessState() == 4){
             p.Set_ProcessState(0);
@@ -64,8 +58,6 @@ void ProcessTheTime(Configuration config, MetaData& data, ProcessControl&p) {
         }
     }
     else if (data.Get_cipher() == 'A'){
-   // std::cout << "Process state in A: "<< p.Get_ProcessState() << std::endl;
-
         if(data.Get_caption() == "begin" and p.Get_ProcessState() == 0){
             p.Set_ProcessState(1);
             
@@ -78,20 +70,11 @@ void ProcessTheTime(Configuration config, MetaData& data, ProcessControl&p) {
             data.Set_StartTime(std::chrono::duration<double>(TimeCurrent2 - TimeStart).count());
             logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "OS: starting process " + std::to_string(numproc));
         }else if (data.Get_caption() == "finish" and p.Get_ProcessState() == 1){
-           /// std::cout << "Im here" << std::endl;
-           // std::cout << "Process state in A begin: "<< p.Get_ProcessState() << std::endl;
             p.Set_ProcessState(0);
             auto TimeCurrent = std::chrono::system_clock::now();
             data.Set_StartTime(std::chrono::duration<double>(TimeCurrent - TimeStart).count());
             logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "OS: Removing process "+ std::to_string(numproc));
-        }/*else if (data.Get_caption() == "begin" and p.Get_ProcessState() == 1){
-            std::cout << "Im here" << std::endl;
-            std::cout << "Process state in A begin: "<< p.Get_ProcessState() << std::endl;
-
-            auto TimeCurrent = std::chrono::system_clock::now();
-            data.Set_StartTime(std::chrono::duration<double>(TimeCurrent - TimeStart).count());
-            logf.push_back(std::to_string(data.Get_StartTime()) + " - " + "Preparing Process 2");
-        }*/
+        }
         else {
             throw_line("\"begin\" or \"finish\" are missing CODE A (case sensitive) ");
         }
@@ -242,35 +225,6 @@ void logtofile(Configuration config, std::vector<MetaData> data){
  * @return VOID: Nothing
  */
 void logoutput(Configuration config, std::ostream& output, int status, std::vector<MetaData> data){
-  /*
-    output << "Configuration File Data \n";
-    output << "Monitor = "    << config.Get_MonitorTime()   << " ms/cycle \n";
-    output << "Processor = "  << config.Get_ProcessorTime() << " ms/cycle \n";
-    output << "Scanner = "    << config.Get_ScannerTime()   << " ms/cycle \n";
-    output << "Hard Drive = " << config.Get_HardDriveTime() << " ms/cycle \n";
-    output << "Keyboard = "   << config.Get_KeyboardTime()  << " ms/cycle \n";
-    output << "Memory = "     << config.Get_MemoryTime()    << " ms/cycle \n";
-    output << "Projector = "  << config.Get_ProjectorTime() << " ms/cycle \n";
-
-    if (status == 1 ){
-        output << "Logged to: monitor and " << config.Get_LogFilePath() << std::endl;
-    }
-    if (status == 2){
-        output << "Logged to " << config.Get_LogToObject() << std::endl;
-    }
-    if (status == 3){
-        output << "Logged to " << config.Get_LogFilePath() << std::endl;
-    }
-    output << std::endl;
-    output << "Meta-Data Metrics \n";
-
-    for (std::vector<MetaData>::iterator it = data.begin() ; it != data.end(); ++it){
-        MetaData DATA = *it;
-        if (!(DATA.Get_cipher() == 'S') and !(DATA.Get_cipher() == 'A')){
-            output << DATA.Get_data() << " - " << DATA.Get_time() << " ms\n";
-        }
-    }
-    */
    for (auto it= logf.begin(); it != logf.end(); it++){
        output << std::fixed << std::setprecision(6) << *it << std::endl;
    }
