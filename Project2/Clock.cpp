@@ -1,4 +1,18 @@
+// Class Implementation File Information //////////////////////
+/**
+ * @file Clock.cpp
+ * @brief Implementations for Clock.h
+ * @details Implemented most functions required for a user created class
+ * @version 1.0
+ * @author Pedram Safaei
+ * @bug nothing that can catched
+ * @note bugs have been catched according the instruction
+ */
+
+// Header Files /////////////////////////////////////////////////// 
+//
 #include "Clock.h"
+//
 
 void* Clock::TIMER(void* na){
     std::chrono::system_clock::time_point start;
