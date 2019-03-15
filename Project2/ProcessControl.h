@@ -1,10 +1,26 @@
+// Class Header Information /////////////////////////
+/**
+ * @file ProcessControl.h
+ * @brief Implementations for ProcessControl.h
+ * @details Implemented most functions required for a user created class
+ * @version 1.0
+ * @author Pedram Safaei
+ * @bug nothing that can catched
+ * @note bugs have been catched according the instruction
+ */
+
+// Precompiler Directives //////////////////////////////////////////
+//
 #ifndef PROCESSCONTROL
 #define PROCESSCONTROL
+//
 
+// Header Files /////////////////////////////////////////////////// 
+//
 #include "CustomException.h"
 #include "MetaData.h"
-
 #include <deque>
+//
 
 class ProcessControl{
 private:
