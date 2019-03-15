@@ -199,14 +199,4 @@ void MetaData::LoadMataData(std::string path, std::vector<MetaData> &MetaDatadat
         MetaData TEMP(input, caption, period, text);
         MetaDatadata.push_back(TEMP);
     }    
-    /*
-    int numproc = 0;
-    for (auto it= MetaDatadata.begin(); it!= MetaDatadata.end(); ++it){
-        std::cout << it->Get_cipher() << " " << it->Get_caption() << std::endl;
-        if(it->Get_cipher() == 'A' and it->Get_caption() == "begin"){
-            ++numproc;
-            std::cout << "Process " << numproc << std::endl;
-        }
-    }
-    */
 }
